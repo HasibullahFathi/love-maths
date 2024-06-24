@@ -5,16 +5,16 @@ document.addEventListener("DOMContentLoaded", function() {
     for(let button of buttons) {
         button.addEventListener("click", function() {
             if(this.getAttribute("data-type") === "submit") {
-                alert("You clicked submit!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
             }
-        })
+        });
     }
 
     runGame("addition");
-})
+});
 
 function runGame(gameType) {
 
@@ -25,23 +25,44 @@ function runGame(gameType) {
         displayAdditionQuestion(num1, num2);
     } else {
         alert(`unknown game type: ${gameType}`);
-        throw `unknown game type: ${gameType}. aborting!`;
+        throw `unknown game type: ${gameType}. Aborting!`;
     }
 }
 
 function checkAnswer() {
+    let calculatedAnswer = calculateCorrectAnswer();
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let isCorrect = userAnswer === calculatedAnswer[0];
 
+    if(isCorrect) {
+        alert(`correct answer!!!`);
+    } else {
+        alert(`wrong answer your answer is ${userAnswer}. and the correct answer is ${calculatedAnswer[0]}!`);
+    }
+
+    runGame(calculatedAnswer[1]);
 }
 
 function calculateCorrectAnswer() {
+
+    let operand1 = parseInt(document.getElementById("operand1").innerText);
+    let operand2 = parseInt(document.getElementById("operand2").innerText);
+    let operator = document.getElementById("operator").innerText;
+
+    if(operator === "+") {
+        return [operand1 + operand2, "addition"];
+    } else {
+        alert(`unknown operator: ${operator}`);
+        throw `unknown operator: ${operator}. Aborting!`;
+    }
     
 }
 
-function encrementScore() {
+function incrementScore() {
     
 }
 
-function encrementWrongAnswer() {
+function incrementWrongAnswer() {
     
 }
 
