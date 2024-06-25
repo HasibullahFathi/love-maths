@@ -36,6 +36,8 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2);
+    } else if (gameType === "division") {
+        displayDivideQuestion(num1, num2);
     } else {
         alert(`unknown game type: ${gameType}`);
         throw `unknown game type: ${gameType}. Aborting!`;
@@ -70,6 +72,10 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multyply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
+    } else if (operator === "/") {
+        // display rounded 2 digits to the nearest integer
+        return [Math.round((operand1 / operand2) * 100) / 100, "division"];
+
     } else {
         alert(`unknown operator: ${operator}`);
         throw `unknown operator: ${operator}. Aborting!`;
@@ -103,5 +109,11 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+}
+
+function displayDivideQuestion(operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
+    document.getElementById('operator').textContent = "/";
 }
 
